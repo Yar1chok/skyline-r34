@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import {
   buildGround,
   buildRoad,
@@ -163,7 +164,10 @@ export class SceneEnvironmentService {
    * Случайные масштаб, поворот и сдвиг от оси прячут повторяемость.
    */
   private loadSakuraTrees(): void {
-    new GLTFLoader().load('models/tree_sakura.glb', (gltf) => {
+    const loader = new GLTFLoader();
+    // GLB сжат meshopt-компрессией (EXT_meshopt_compression) — без декодера не загрузится
+    loader.setMeshoptDecoder(MeshoptDecoder);
+    loader.load('models/tree_sakura.glb', (gltf) => {
       const template = gltf.scene;
       template.traverse((child) => {
         if ((child as THREE.Mesh).isMesh) {

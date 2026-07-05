@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import { WHEEL_NAMES } from '@const/scene.const';
 
@@ -47,7 +48,10 @@ export class CarModelService {
       this._loadProgress.set(Math.round((loaded / total) * 100));
     };
 
-    new GLTFLoader(manager).load('models/skyline-r34.glb', (gltf) => {
+    const loader = new GLTFLoader(manager);
+    // GLB сжат meshopt-компрессией (EXT_meshopt_compression) — без декодера не загрузится
+    loader.setMeshoptDecoder(MeshoptDecoder);
+    loader.load('models/skyline-r34.glb', (gltf) => {
       const model = gltf.scene;
 
       const bbox = new THREE.Box3().setFromObject(model);
