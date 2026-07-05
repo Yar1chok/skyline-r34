@@ -1,0 +1,118 @@
+<app-loader [progress]="loadProgress()" [loaded]="isModelLoaded()" />
+
+<div class="scene-container">
+  <div class="canvas-wrapper">
+    <canvas #canvas></canvas>
+
+    <div class="overlay">
+      <!-- Шапка -->
+      <header class="top-bar">
+        <app-scene-controls />
+        <div class="top-bar-actions">
+          <button class="lang-toggle" (click)="toggleLanguage()" [attr.aria-label]="t().langAria">
+            {{ languageService.language().toUpperCase() }}
+          </button>
+          <button
+            class="theme-toggle"
+            (click)="toggleTheme()"
+            [attr.aria-label]="
+              themeService.theme() === 'dark' ? t().themeAriaToLight : t().themeAriaToDark
+            "
+          >
+            @if (themeService.theme() === 'dark') {
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
+            } @else {
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            }
+          </button>
+        </div>
+      </header>
+
+      <!-- Заголовок — виден до начала прокрутки -->
+      <div class="hero-title" [class.visible]="showTitle()">
+        <div class="badge">BNR34 · 1999 – 2002</div>
+        <h1>Nissan<br />Skyline GT-R</h1>
+        <p class="subtitle">C-West Edition</p>
+      </div>
+
+      <!-- Текущая секция -->
+      <div class="section-info" [class.visible]="showSectionInfo()">
+        <h2>{{ currentSection().title }}</h2>
+        <p>{{ currentSection().subtitle }}</p>
+      </div>
+
+      <!-- Характеристики двигателя (0–25%): камера облетает перед автомобиля -->
+      <div class="tech-specs" [class.visible]="showEngineSpecs()">
+        @for (spec of t().engineSpecs; track spec.label) {
+          <div class="spec-item">
+            <div class="spec-label">{{ spec.label }}</div>
+            <div class="spec-value">{{ spec.value }}</div>
+            <div class="spec-detail">{{ spec.detail }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Характеристики тормозной системы (25–55%): камера у переднего правого колеса -->
+      <div class="wheel-specs" [class.visible]="showWheelSpecs()">
+        @for (spec of t().wheelSpecs; track spec.label) {
+          <div class="spec-item">
+            <div class="spec-label">{{ spec.label }}</div>
+            <div class="spec-value">{{ spec.value }}</div>
+            <div class="spec-detail">{{ spec.detail }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Интерьер и кокпит (55–78%): камера внутри салона -->
+      <div class="interior-specs" [class.visible]="showInteriorSpecs()">
+        @for (spec of t().interiorSpecs; track spec.label) {
+          <div class="spec-item">
+            <div class="spec-label">{{ spec.label }}</div>
+            <div class="spec-value">{{ spec.value }}</div>
+            <div class="spec-detail">{{ spec.detail }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Подсказка прокрутки -->
+      <div class="scroll-hint" [class.hidden]="!showScrollHint()">
+        <span class="brand-hint">BNR34 · GTR</span>
+        <span>{{ t().scrollHint }}</span>
+        <div class="scroll-line"></div>
+      </div>
+
+      <!-- Прогресс-бар прокрутки -->
+      <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="scrollProgress() * 100">
+        <div class="progress-fill" [style.width.%]="scrollProgress() * 100"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-track" aria-hidden="true"></div>
+</div>

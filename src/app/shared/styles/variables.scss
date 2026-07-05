@@ -1,0 +1,107 @@
+// Typography
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+$font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+// Spacing
+$space-xs: 0.5rem;
+$space-sm: 1rem;
+$space-md: 2rem;
+$space-lg: 3rem;
+$space-xl: 5rem;
+
+// Z-index layers
+$z-canvas:  0;
+$z-overlay: 10;
+$z-nav:     100;
+$z-modal:   200;
+$z-loader:  1000;
+
+// Transitions
+$transition-fast:   0.25s ease;
+$transition-medium: 0.45s ease;
+$transition-slow:   0.65s ease;
+
+// Layout
+$scroll-track-height: 350vh;
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.5rem;
+$border-width: 0.0625rem;
+
+// Controls
+$icon-button-size: 2.2rem;
+
+// Text shadows (поверх canvas — не зависят от темы)
+$text-shadow-lg: 0 0.125rem 1.25rem rgba(0, 0, 0, 0.8), 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.6);
+$text-shadow-md: 0 0.125rem 1rem rgba(0, 0, 0, 0.8);
+$text-shadow-sm: 0 0.0625rem 0.5rem rgba(0, 0, 0, 0.7);
+
+:root {
+  // --- Dark theme (default) ---
+  --color-bg:           #07071a;
+  --color-surface:      #0d0d24;
+  --color-surface-2:    #13133a;
+  --color-border:       rgba(108, 127, 255, 0.2);
+
+  // Accent — Bayside Blue / blue-purple palette
+  --color-accent:       #6c7fff;
+  --color-accent-2:     #9b6fff;
+  --color-accent-glow:  rgba(108, 127, 255, 0.25);
+  --color-accent-muted: rgba(108, 127, 255, 0.15);
+
+  // Text
+  --color-text:         #f0f0ff;
+  --color-text-muted:   rgba(240, 240, 255, 0.45);
+  --color-text-dim:     rgba(240, 240, 255, 0.25);
+
+  // Progress / UI
+  --color-progress-bg:  rgba(108, 127, 255, 0.08);
+  --color-grid:         rgba(108, 127, 255, 0.06);
+  --color-grid-line:    rgba(108, 127, 255, 0.1);
+
+  // Scrollbar
+  --color-scrollbar-track: #111130;
+  --color-scrollbar-thumb: #2a2a5a;
+
+  // --- Overlay text (поверх 3D-сцены — одинаковый в обеих темах) ---
+  --color-overlay-text:       #f0f0ff;
+  --color-overlay-text-muted: rgba(240, 240, 255, 0.6);
+
+  // --- Scene controls panel (dev-панель — одинаковая в обеих темах) ---
+  --color-panel-bg:             rgba(14, 14, 22, 0.96);
+  --color-panel-border:         rgba(255, 255, 255, 0.08);
+  --color-panel-hdr-bg:         rgba(0, 0, 0, 0.45);
+  --color-panel-row-border:     rgba(255, 255, 255, 0.04);
+  --color-panel-row-hover:      rgba(255, 255, 255, 0.025);
+  --color-panel-text:           rgba(255, 255, 255, 0.72);
+  --color-panel-text-dim:       rgba(255, 255, 255, 0.4);
+  --color-panel-text-bright:    rgba(255, 255, 255, 0.75);
+  --color-panel-value:          #4fc3f7;
+  --color-panel-control:        #4a9eff;
+  --color-panel-input-border:   rgba(255, 255, 255, 0.15);
+  --color-panel-close-bg:       rgba(0, 0, 0, 0.25);
+  --color-panel-close-hover-bg: rgba(255, 255, 255, 0.06);
+  --shadow-panel:               0 0.5rem 2rem rgba(0, 0, 0, 0.6);
+}
+
+[data-theme='light'] {
+  --color-bg:           #f0f0ff;
+  --color-surface:      #ffffff;
+  --color-surface-2:    #e8e8ff;
+  --color-border:       rgba(59, 78, 207, 0.3);
+
+  --color-accent:       #3b4ecf;
+  --color-accent-2:     #7c3aed;
+  --color-accent-glow:  rgba(59, 78, 207, 0.2);
+  --color-accent-muted: rgba(230, 232, 255, 0.82);
+
+  --color-text:         #0a0a1e;
+  --color-text-muted:   rgba(10, 10, 30, 0.6);
+  --color-text-dim:     rgba(10, 10, 30, 0.4);
+
+  --color-progress-bg:  rgba(59, 78, 207, 0.08);
+  --color-grid:         rgba(59, 78, 207, 0.04);
+  --color-grid-line:    rgba(59, 78, 207, 0.1);
+
+  --color-scrollbar-track: #e0e0f5;
+  --color-scrollbar-thumb: #b0b0d0;
+}

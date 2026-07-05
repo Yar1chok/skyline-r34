@@ -1,0 +1,87 @@
+<div class="controls-wrap">
+
+  <button class="toggle-btn" (click)="toggle()" [attr.aria-expanded]="open()" [title]="t().sceneControls.title">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </svg>
+  </button>
+
+  @if (open()) {
+    <div class="panel">
+
+      <div class="section-hdr">{{ t().sceneControls.sceneProperties }}</div>
+
+      <label class="row">
+        <span class="lbl">{{ t().sceneControls.autoRotate }}</span>
+        <input type="checkbox" [checked]="params.autoRotate" (change)="onAutoRotate($event)">
+      </label>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.fogDensity }}</span>
+        <input type="range" class="slider" min="0.001" max="0.08" step="0.001"
+               [value]="params.fogDensity" (input)="onFogDensity($event)">
+        <span class="val">{{ params.fogDensity.toFixed(3) }}</span>
+      </div>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.fogColor }}</span>
+        <input type="color" [value]="params.fogColor" (input)="onFogColor($event)">
+        <span class="val">{{ params.fogColor }}</span>
+      </div>
+
+      <div class="section-hdr">{{ t().sceneControls.grassProps }}</div>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.baseColor }}</span>
+        <input type="color" [value]="params.grassBase" (input)="onGrassBase($event)">
+        <span class="val">{{ params.grassBase }}</span>
+      </div>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.tipColor1 }}</span>
+        <input type="color" [value]="params.grassTip1" (input)="onGrassTip1($event)">
+        <span class="val">{{ params.grassTip1 }}</span>
+      </div>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.tipColor2 }}</span>
+        <input type="color" [value]="params.grassTip2" (input)="onGrassTip2($event)">
+        <span class="val">{{ params.grassTip2 }}</span>
+      </div>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.noiseScale }}</span>
+        <input type="range" class="slider" min="0" max="2" step="0.05"
+               [value]="params.noiseScale" (input)="onNoiseScale($event)">
+        <span class="val">{{ params.noiseScale.toFixed(2) }}</span>
+      </div>
+
+      <div class="section-hdr">{{ t().sceneControls.lighting }}</div>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.lightIntensity }}</span>
+        <input type="range" class="slider" min="0" max="3" step="0.05"
+               [value]="params.lightIntensity" (input)="onLightIntensity($event)">
+        <span class="val">{{ params.lightIntensity.toFixed(2) }}</span>
+      </div>
+
+      <label class="row">
+        <span class="lbl">{{ t().sceneControls.enableShadows }}</span>
+        <input type="checkbox" [checked]="params.shadowsEnabled" (change)="onShadowsEnabled($event)">
+      </label>
+
+      <div class="section-hdr">{{ t().sceneControls.terrain }}</div>
+
+      <div class="row">
+        <span class="lbl">{{ t().sceneControls.terrainColor }}</span>
+        <input type="color" [value]="params.terrainColor" (input)="onTerrainColor($event)">
+        <span class="val">{{ params.terrainColor }}</span>
+      </div>
+
+      <button class="close-btn" (click)="toggle()">{{ t().sceneControls.close }}</button>
+
+    </div>
+  }
+
+</div>

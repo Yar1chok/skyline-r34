@@ -1,0 +1,24 @@
+@use './variables' as variables;
+
+// Квадратная кнопка-иконка в шапке (смена темы, настройки сцены).
+// Иконка внутри — SVG 18×18 с stroke="currentColor".
+@mixin icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: variables.$icon-button-size;
+  height: variables.$icon-button-size;
+  background: var(--color-accent-muted);
+  border: variables.$border-width solid var(--color-border);
+  border-radius: variables.$border-radius-sm;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background variables.$transition-fast, border-color variables.$transition-fast,
+    color variables.$transition-fast;
+
+  &:hover {
+    background: var(--color-accent-glow);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+}
