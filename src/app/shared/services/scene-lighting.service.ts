@@ -163,7 +163,7 @@ export class SceneLightingService {
   private getCelestialTexture(kind: 'sun' | 'moon'): THREE.Texture {
     const cached = this.celestialTextures[kind];
     if (cached) return cached;
-    const tex = new THREE.TextureLoader().load(`/models/space/${kind}.jpg`);
+    const tex = new THREE.TextureLoader().load(`models/space/${kind}.jpg`);
     tex.colorSpace = THREE.SRGBColorSpace;
     this.celestialTextures[kind] = tex;
     return tex;

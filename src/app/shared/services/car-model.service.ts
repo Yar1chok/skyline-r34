@@ -47,7 +47,7 @@ export class CarModelService {
       this._loadProgress.set(Math.round((loaded / total) * 100));
     };
 
-    new GLTFLoader(manager).load('/models/skyline-r34.glb', (gltf) => {
+    new GLTFLoader(manager).load('models/skyline-r34.glb', (gltf) => {
       const model = gltf.scene;
 
       const bbox = new THREE.Box3().setFromObject(model);

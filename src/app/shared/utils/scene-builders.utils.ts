@@ -56,8 +56,8 @@ export function buildGround(scene: THREE.Scene): GroundResult {
 
   // Текстура тайлится 6×80 раз — 1K диффуза и 512px карты высот достаточно;
   // 4K-оригиналы лежат в assets-src (в GPU-память они не влезали без лагов)
-  const diffuse = applyRepeat(texLoader.load('/models/ground/rocky_terrain_02_diff.jpg'));
-  const dispTex = applyRepeat(texLoader.load('/models/ground/rocky_terrain_02_disp.png'));
+  const diffuse = applyRepeat(texLoader.load('models/ground/rocky_terrain_02_diff.jpg'));
+  const dispTex = applyRepeat(texLoader.load('models/ground/rocky_terrain_02_disp.png'));
 
   const groundMat = new THREE.MeshStandardMaterial({
     map: diffuse,

@@ -163,7 +163,7 @@ export class SceneEnvironmentService {
    * Случайные масштаб, поворот и сдвиг от оси прячут повторяемость.
    */
   private loadSakuraTrees(): void {
-    new GLTFLoader().load('/models/tree_sakura.glb', (gltf) => {
+    new GLTFLoader().load('models/tree_sakura.glb', (gltf) => {
       const template = gltf.scene;
       template.traverse((child) => {
         if ((child as THREE.Mesh).isMesh) {
@@ -202,14 +202,14 @@ export class SceneEnvironmentService {
    */
   private loadFluffyGrass(): void {
     const texLoader = new THREE.TextureLoader();
-    const grassAlpha = texLoader.load('/models/grass/grass.jpeg');
-    const noiseTex = texLoader.load('/models/grass/perlinnoise.webp');
+    const grassAlpha = texLoader.load('models/grass/grass.jpeg');
+    const noiseTex = texLoader.load('models/grass/perlinnoise.webp');
     noiseTex.wrapS = THREE.RepeatWrapping;
     noiseTex.wrapT = THREE.RepeatWrapping;
 
     this.grassMaterial = createGrassMaterial(grassAlpha, noiseTex);
 
-    new GLTFLoader().load('/models/grass/grassLODs.glb', (gltf) => {
+    new GLTFLoader().load('models/grass/grassLODs.glb', (gltf) => {
       let bladeGeo: THREE.BufferGeometry | null = null;
       gltf.scene.traverse((child) => {
         const mesh = child as THREE.Mesh;
