@@ -22,8 +22,13 @@ import { WHEEL_NAMES } from '@const/scene.const';
  */
 @Injectable({ providedIn: 'root' })
 export class CarModelService {
+  private static readonly WHEEL_AXIS = new THREE.Vector3(1, 0, 0);
+
   private carModel: THREE.Group | null = null;
   private wheelNodes: THREE.Object3D[] = [];
+  /** Колёса для анимации: узел, исходная ориентация (с развалом) и знак вращения */
+  private wheelSpins: { node: THREE.Object3D; rest: THREE.Quaternion; sign: number }[] = [];
+  private readonly wheelSpinQuat = new THREE.Quaternion();
 
   private readonly _loaded = signal(false);
   private readonly _loadProgress = signal(0);
@@ -69,7 +74,12 @@ export class CarModelService {
 
       for (const name of WHEEL_NAMES) {
         const node = model.getObjectByName(name);
-        if (node) this.wheelNodes.push(node);
+        if (!node) continue;
+        this.wheelNodes.push(node);
+        // Правые колёса зеркалятся разворотом узла на 180°, их локальная ось X
+        // смотрит внутрь машины — таким нужен противоположный знак угла
+        const localX = new THREE.Vector3(1, 0, 0).applyQuaternion(node.quaternion);
+        this.wheelSpins.push({ node, rest: node.quaternion.clone(), sign: localX.x >= 0 ? 1 : -1 });
       }
 
       this.mergeStaticMeshes(model);
@@ -161,7 +171,12 @@ export class CarModelService {
   /** Вращение колёс синхронно с прокруткой: 14 полных оборотов на весь скролл */
   public animateWheels(progress: number): void {
     const angle = progress * Math.PI * 28;
-    for (const wheel of this.wheelNodes) wheel.rotation.x = angle;
+    for (const { node, rest, sign } of this.wheelSpins) {
+      // Крутим вокруг локальной оси ступицы (rest * spin), а не вокруг X родителя:
+      // в узлах запечён развал ~2°, и вращение мимо наклонённой оси давало «восьмёрку»
+      this.wheelSpinQuat.setFromAxisAngle(CarModelService.WHEEL_AXIS, angle * sign);
+      node.quaternion.copy(rest).multiply(this.wheelSpinQuat);
+    }
   }
 
   public setCastShadow(enabled: boolean): void {
