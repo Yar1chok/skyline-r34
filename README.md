@@ -50,4 +50,4 @@ src/app/
 
 ## Деплой
 
-Публикация на GitHub Pages настроена в [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) — сборка и выкладка происходят автоматически при пуше в `master`.
+Публикация на GitHub Pages настроена в [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) — сборка и выкладка происходят автоматически при пуше в `main`.
